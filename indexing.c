@@ -19,11 +19,11 @@ void indexing(char filefound[]){
                 stat(filefound, &st);
                 int size = st.st_size;
 
-                // MALLOC-ING BUFFER SIZE
+                // ALLOCATING BUFFER SIZE
                 char buffer[size];
                 size_t got;
 
-                // COPY CONTENTS TO DESTINATION
+                // REXTRACTING LARGE STRING THEN INDIVIDUAL WORDS
                 while( (got = fread(buffer, 1, sizeof buffer, fp_in)) > 0) {
                         printf("%s\n", buffer);
                 }
