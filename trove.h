@@ -1,4 +1,8 @@
-// header files required by all files
+/**
+ * This is the header file to be used for the CITS2002 Sem 2 Project 2
+ */
+
+// THESE ARE THE INCLUDE FILES FOR THE PROGRAM
 #define _GNU_SOURCE
 #include <getopt.h>
 #include <dirent.h>
@@ -27,13 +31,11 @@ extern char *trovePath;
 // Min word length from -l flag
 extern int minLength;
 
-typedef struct _troveInfo{
-        char            *pathName;
-        struct _troveInfo       *next;
-} TINFO;
-
 // THESE ARE THE DATATYPES AND FUNCTION DECLARATIONS FOR THE LIST
 // TO BE USED FOR THE HASHTABLE
+
+//PREPROCESSOR MACRO TO CHECK IF ALLOCATIONS WERE SUCCESSFUL
+#define CHECK_ALLOC(p) if(p == NULL) {perror(__func__); exit(EXIT_FAILURE);}
 
 // LIST DATA TYPE
 typedef struct _list{
@@ -44,5 +46,11 @@ typedef struct _list{
 // FUNCTIONS TO BE USED IN LIST FUNCTIONS
 extern  LIST *list_new(void);
 extern  LIST *list_add(LIST*, char*);
-extern  bool list_find(LIST, char*);
+extern  bool list_find(LIST*, char*);
 extern  void list_print(LIST*);
+
+// DEF STRUCT TO STORE ABS PATHNAME AND LIST
+struct troveInfo{
+        char    *pathName;
+        LIST    uniqueWords;
+};
