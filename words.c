@@ -105,8 +105,10 @@ void words(char *fileContents, char *fileName){
                 i++;
                 character = fileContents[i];
         }
+        char buf[PATH_MAX];
+        char *absPath = realpath(fileName, buf);
         // HASH EACH WORD AND ADD TO THE HASHTABLE
         for(int j = 0; j < numUniqueWords; j ++){
-                hashtable_add(hashtable, uniqueWords[j], fileName);
+                hashtable_add(hashtable, uniqueWords[j], absPath);
         }
 }
