@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <fcntl.h>
 
 // GLOBAL PREPROCESSOR CONSTANTS
 
@@ -46,10 +47,11 @@ extern  void list_print(LIST*);
 // HASHTABLE FUNCTIONS AND DEFINITION
 typedef LIST * HASHTABLE;
 
-extern HASHTABLE *hashtable;
+extern HASHTABLE hashtable[];
 extern HASHTABLE *hashtable_new(void);
 extern void hashtable_add(HASHTABLE*, char *, char *);
 extern bool hastable_find(HASHTABLE *, char*, char*);
+extern void hashtable_print();
 
 // GLOBAL FUNCTIONS
 extern void findfiles(char*);
@@ -59,3 +61,4 @@ extern void words(char*, char*);
 extern void filenames(char *);
 extern void removeData(char*);
 extern void updateData(char*);
+extern void trovefile(void);
