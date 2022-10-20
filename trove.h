@@ -37,8 +37,6 @@ typedef struct _list{
         struct _list    *nextWord;
 } LIST;
 
-extern LIST *uniqueWords;
-
 // FUNCTIONS TO BE USED IN LIST FUNCTIONS
 extern  LIST *list_new(void);
 extern  LIST *list_add(LIST*, char*);
@@ -48,15 +46,16 @@ extern  void list_print(LIST*);
 // HASHTABLE FUNCTIONS AND DEFINITION
 typedef LIST * HASHTABLE;
 
+extern HASHTABLE *hashtable;
 extern HASHTABLE *hashtable_new(void);
-extern void hashtable_add(HASHTABLE *, char *string);
-extern bool hastable_find(HASHTABLE *, char *string);
+extern void hashtable_add(HASHTABLE*, char *, char *);
+extern bool hastable_find(HASHTABLE *, char*, char*);
 
 // GLOBAL FUNCTIONS
 extern void findfiles(char*);
 extern void build(char*);
 extern void indexing(char*);
-extern void words(char*);
+extern void words(char*, char*);
 extern void filenames(char *);
 extern void removeData(char*);
 extern void updateData(char*);
