@@ -8,4 +8,4 @@
 char *trovePath = "/tmp/trove";
 int minLength = 4;
 
-HASHTABLE *hashtable;
+HASHTABLE hashtable[ARRAYSIZE];
