@@ -43,7 +43,7 @@ void build(char *pathName) {
         struct stat path;
         stat(pathName, &path);
 
-        hashtable = hashtable_new();
+//      hashtable = hashtable_new();
 
         // checks if pathName corresonds to a file or a directory
         if (S_ISDIR(path.st_mode)) {
@@ -57,5 +57,6 @@ void build(char *pathName) {
         else{
                 printf("Could not locate directory or file named <%s>.\n", pathName);
         }
-        hashtable_print();
+//      hashtable_print();
+        trovefile();
 }
