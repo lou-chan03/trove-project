@@ -45,6 +45,17 @@ LIST *list_add(LIST *list, char *newstring){
         }
 }
 
+bool notInArray(char *word, char *wordsArr[], int numWords) {
+        for(int i = 0; i < numWords ; i ++){
+                if(strlen(wordsArr[i]) == strlen(word)){
+                        if(strcmp(wordsArr[i], word) == 0){
+                                return false;
+                        }
+                }
+        }
+        return true;
+}
+
 // PRINTS OUT EACH ITEM IN THE LIST
 void list_print(LIST *list){
         if(list != NULL){
@@ -59,7 +70,8 @@ void list_print(LIST *list){
         }
 }
 
-void words(char *fileContents){
+// return the list of unique words for each file
+void words(char *fileContents, char *fileName){
         // INITIALIZE AND DECLARE SIZE OF FILE CONTENT STRING
         int i = 0;
         char character = fileContents[i];
@@ -67,6 +79,9 @@ void words(char *fileContents){
 
         // INITIALIZES currentWord TO BE A SINGLE CHARACTER STRING
         currentWord = (char *) malloc(sizeof(char));
+
+        char *uniqueWords[strlen(fileContents)/(minLength-1)];
+        int numUniqueWords = 0;
 
         // WHILE NOT NULL BYTE
         while(character != '\0'){
@@ -78,9 +93,11 @@ void words(char *fileContents){
                 }
                 else{
                         // IF LENGTH OF WORD IS GREATER THAN MINLENGTH
-                        if(strlen(currentWord) >= minLength) {
-                                // ALLOCATE MEMORY IN UNIQUEWORDS LIST FOR THE CURRENT WORD AND ADD TO IT
-                                uniqueWords = list_add(uniqueWords, currentWord);
+                        if(strlen(currentWord) >= minLength && notInArray(currentWord, uniqueWords, numUniqueWords)) {
+                                int wordLength = strlen(currentWord);
+                                uniqueWords[numUniqueWords] = (char*) malloc(sizeof(char) * (wordLength + 1));
+                                strcpy(uniqueWords[numUniqueWords], currentWord);
+                                numUniqueWords++;
                         }
                         memset(currentWord, 0, strlen(currentWord));
                 }
@@ -88,5 +105,8 @@ void words(char *fileContents){
                 i++;
                 character = fileContents[i];
         }
-        list_print(uniqueWords);
+        // HASH EACH WORD AND ADD TO THE HASHTABLE
+        for(int j = 0; j < numUniqueWords; j ++){
+                hashtable_add(hashtable, uniqueWords[j], fileName);
+        }
 }
