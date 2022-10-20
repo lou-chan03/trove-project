@@ -1,19 +1,18 @@
-**
+/**
  * This is the file used to index the contents
  * of the files
  */
 #include "trove.h"
-#include <fcntl.h>
 
 // THIS IS TO READ THE CONTENTS OF THE FILE
 // AND WRITE TO THE FILE TO BE BUILT/MODIFIED
 void indexing(char filefound[]){
         // FIRST OPEN THE TWO FILES
         FILE    *fp_in = fopen(filefound, "r");
-        //FILE  *fp_out = fopen(trovefile, "r+");
+//      FILE    *fp_out = fopen(trovefile, "r+");
 
         // ENSURE BOTH OPENINGS ARE SUCCESSFUL
-        if(fp_in != NULL){ //&& fp_out != NULL){
+        if(fp_in != NULL){// && fp_out != NULL){
                 // DETERMINING THE SIZE OF THE FILE
                 struct stat st;
                 stat(filefound, &st);
