@@ -1,6 +1,9 @@
-#include "trove.h"
+/**
+ * THIS IS FOR THE BUILDING OF A NEW FILE
+ * AND CONTAINS HASHTABLE FUNCTION CODE
+ */
 
-#define HASHTABLE_SIZE 997
+#include "trove.h"
 
 // THIS IS TO HASH THE ABSOLUTE PATHNAME
 u_int32_t hash_string(char *string){
@@ -14,27 +17,33 @@ u_int32_t hash_string(char *string){
 }
 
 HASHTABLE *hashtable_new(void){
-        HASHTABLE *new = calloc(HASHTABLE_SIZE, sizeof(LIST *));
+        HASHTABLE *new = calloc(ARRAYSIZE, sizeof(LIST *));
         CHECK_ALLOC(new);
         return new;
 }
 
-void hashtable_add(HASHTABLE *hashtable, char *string){
-        u_int32_t h = hash_string(string) % HASHTABLE_SIZE;
-        hashtable[h] = list_add(hashtable[h], string);
+void hashtable_add(HASHTABLE *hashtable, char *string, char* pathName){
+        u_int32_t h = hash_string(string) % ARRAYSIZE;
+        hashtable[h] = list_add(hashtable[h], pathName);
 }
 
-bool hashtable_find(HASHTABLE *hashtable, char *string){
-        u_int32_t h = hash_string(string) % HASHTABLE_SIZE;
-        return list_find(hashtable[h], string);
+bool hashtable_find(HASHTABLE *hashtable, char *string, char *pathName){
+        u_int32_t h = hash_string(string) % ARRAYSIZE;
+        return list_find(hashtable[h], pathName);
+}
+
+void hashtable_print(void){
+        for(int i = 0; i < ARRAYSIZE ; i++){
+                printf("\n-----[%i]-----\n", i);
+                list_print(hashtable[i]);
+        }
 }
 
 void build(char *pathName) {
         struct stat path;
         stat(pathName, &path);
 
-        // initialize array of structs
-        LIST * uniqueWords = list_new();
+        hashtable = hashtable_new();
 
         // checks if pathName corresonds to a file or a directory
         if (S_ISDIR(path.st_mode)) {
@@ -44,9 +53,9 @@ void build(char *pathName) {
                 // stop recursion
                 printf("FILE FOUND: %s\n", pathName);
                 indexing(pathName);
-                list_print(uniqueWords);
         }
         else{
                 printf("Could not locate directory or file named <%s>.\n", pathName);
         }
+        hashtable_print();
 }
